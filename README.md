@@ -9,3 +9,4 @@ brew install ripgrep
 comment : gc, gcc
 folding : za, zM, zR
 lsp : K, <leader>ca
+delete all : gg + dG
