@@ -1,20 +1,34 @@
 return {
-  "CopilotC-Nvim/CopilotChat.nvim",
-  dependencies = {
-    "zbirenbaum/copilot.lua",   -- Copilot.lua 의존성
-    "nvim-lua/plenary.nvim",    -- 일반적인 lua 함수 의존성
-  },
-  opts = {
-    -- 기본 설정
-  },
-  cmd = {
-    "CopilotChat",
-    "CopilotChatToggle",
-    -- 기타 명령어...
-  },
-  keys = {
-    -- 단축키 설정 (선택사항)
-    { "<leader>cc", "<cmd>CopilotChat<cr>", desc = "CopilotChat - 열기" },
-    -- 기타 단축키...
-  },
+	{
+		"CopilotC-Nvim/CopilotChat.nvim",
+		dependencies = {
+			{ "github/copilot.vim" }, -- or zbirenbaum/copilot.lua
+			{ "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
+		},
+		build = "make tiktoken", -- Only on MacOS or Linux
+		opts = {
+			-- See Configuration section for options
+			prompts = {
+				Rename = {
+					prompt = "Please rename the variable correctly in given selection based on context",
+					selection = function(source)
+						local select = require("CopilotChat.select")
+						return select.visual(source)
+					end,
+				},
+			},
+		},
+		-- See Commands section for default commands if you want to lazy load on them
+		keys = {
+			{ "<Leader>zc", ":CopilotChat<CR>", mode = "n", desc = "Chat with Copilot" },
+			{ "<Leader>ze", ":CopilotChatExplain<CR>", mode = "v", desc = "Explain Code" },
+			{ "<Leader>zr", ":CopilotChatReview<CR>", mode = "v", desc = "Review Code" },
+			{ "<Leader>zf", ":CopilotChatFix<CR>", mode = "v", desc = "Fix Code Issues" },
+			{ "<Leader>zo", ":CopilotChatOptimize<CR>", mode = "v", desc = "Optimize Code" },
+			{ "<Leader>zd", ":CopilotChatDocs<CR>", mode = "v", desc = "Generate Docs" },
+			{ "<Leader>zt", ":CopilotChatTests<CR>", mode = "v", desc = "Generate Tests" },
+			{ "<Leader>zm", ":CopilotChatCommit<CR>", mode = "n", desc = "Generate Commit Message" },
+			{ "<Leader>zs", ":CopilotChatCommit<CR>", mode = "v", desc = "Generate Commit for Selection" },
+		},
+	},
 }
