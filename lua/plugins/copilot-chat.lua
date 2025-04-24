@@ -7,6 +7,7 @@ return {
 		},
 		build = "make tiktoken", -- Only on MacOS or Linux
 		opts = {
+			system_prompt = "You are a helpful AI assistant. Answer concisely and in Korean.",
 			-- See Configuration section for options
 			prompts = {
 				Rename = {
